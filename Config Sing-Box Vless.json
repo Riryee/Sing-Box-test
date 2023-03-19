@@ -1,0 +1,318 @@
+{
+  "log": {
+    "disabled": true,
+    "level": "warn",
+    "output": "../run/output-sing-box.log",
+    "timestamp": false
+  },
+  "dns": {
+    "final": "google",
+    "strategy": "prefer_ipv4",
+    "disable_cache": false,
+    "disable_expire": false,
+    "servers": [
+      {
+        "tag": "google",
+        "address": "8.8.8.8",
+        "detour": "ZalheraServer"
+      }
+    ],
+    "rules": [
+      {
+        "geosite":[
+          "rule-malicious"
+        ],
+        "server":"dns-out"
+      }
+  ]
+  },
+  "inbounds": [
+    {
+      "type": "tproxy",
+      "tag": "tproxy-in",
+      "listen": "::",
+      "listen_port": 9898,
+      "tcp_fast_open": true,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "sniff_timeout": "300ms",
+      "domain_strategy": "prefer_ipv4",
+      "udp_timeout": 300
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct-out"
+    },
+    {
+      "type": "block",
+      "tag": "block-out"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    },
+    {
+      "tag": "Block Iklan",
+      "type": "selector",
+      "outbounds":[
+        "block-out",
+        "ZalheraServer"
+      ]
+    },
+    {
+      "tag": "Speed Test",
+      "type": "selector",
+      "outbounds":[
+        "block-out",
+        "direct-out",
+        "Zalhera Proxy 1",
+        "Zalhera Proxy 2",
+        "ZalheraServer"
+      ]
+    },
+    {
+      "tag": "DNS DOH",
+      "type": "selector",
+      "outbounds":[
+        "Zalhera Proxy 1",
+        "Zalhera Proxy 2",
+        "ZalheraServer",
+        "block-out",
+        "direct-out"
+      ]
+    },
+    {
+      "tag": "Streaming",
+      "type": "selector",
+      "outbounds":[
+        "Zalhera Proxy 1",
+        "Zalhera Proxy 2"
+      ]
+    },
+    {
+      "tag": "Gaming",
+      "type": "urltest",
+      "outbounds":[
+        "Zalhera Proxy 1",
+        "Zalhera Proxy 2"
+      ],
+      "url": "https://detectportal.firefox.com/success.txt",
+      "interval": "60s",
+      "tolerance": 0
+    },
+    {
+      "tag": "Lock Region ID",
+      "type": "selector",
+      "outbounds":[
+        "Zalhera Proxy 1",
+        "Zalhera Proxy 2"
+      ]
+    },
+    {
+      "tag": "Pro Pekob",
+      "type": "selector",
+      "outbounds":[
+        "block-out",
+        "Zalhera Proxy 1",
+        "Zalhera Proxy 2",
+        "ZalheraServer"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "ZalheraServer",
+      "outbounds": [
+        "Gaming",
+        "Zalhera Proxy 1",
+        "Zalhera Proxy 2",
+        "direct-out"
+      ]
+    },
+    {
+      "tag": "Sosmed",
+      "type": "selector",
+      "outbounds":[
+        "Zalhera Proxy 1",
+        "Zalhera Proxy 2",
+        "ZalheraServer",
+        "block-out",
+        "direct-out"
+      ]
+    },
+    {
+      "tag": "Umum",
+      "type": "selector",
+      "outbounds":[
+        "Zalhera Proxy 1",
+        "Zalhera Proxy 2",
+        "ZalheraServer",
+        "block-out",
+        "direct-out"
+      ]
+    },
+    {
+      "type": "vless",
+      "tag": "Zalhera Proxy 1",
+      "server": "IP/HOSTED CDN FROM CLOUDFLARE",
+      "server_port": 443,
+      "uuid": "UUID",
+      "flow": "",
+      "tls": {
+        "enabled": true,
+        "server_name": "YOURDOMAINSERVER",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "android"
+        }
+      },
+      "packet_encoding": "xudp",
+      "transport": {
+        "type": "ws",
+        "path": "/buy-vless-ws-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "YOURDOMAINSERVER"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "Zalhera Proxy 2",
+      "server": "IP/HOSTED CDN FROM CLOUDFLARE",
+      "server_port": 443,
+      "uuid": "UUID",
+      "flow": "",
+      "tls": {
+        "enabled": true,
+        "server_name": "YOURDOMAINSERVER",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "android"
+        }
+      },
+      "packet_encoding": "xudp",
+      "transport": {
+        "type": "ws",
+        "path": "/buy-vless-ws-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "YOURDOMAINSERVER"
+        }
+      }
+    }
+  ],
+  "route": {
+    "final": "ZalheraServer",
+    "geoip": {
+      "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geoip.db",
+      "download_detour": "ZalheraServer"
+    },
+    "geosite": {
+      "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geosite.db",
+      "download_detour": "ZalheraServer"
+    },
+    "rules": [
+      {
+        "protocol": "dns",
+        "outbound": "dns-out"
+      },
+      {
+        "geosite": [
+          "category-porn",
+          "oisd-nsfw"
+        ],
+        "outbound": "Pro Pekob"
+      },
+      {
+        "geosite":[
+          "rule-indo"
+        ],
+        "outbound":"Lock Region ID"
+      },
+      {
+        "geoip":[
+          "id"
+        ],
+        "outbound": "Lock Region ID"
+      },
+      {
+        "geosite":[
+          "rule-streaming"
+        ],
+        "outbound":"Streaming"
+      },
+      {
+        "geosite":[
+          "rule-doh"
+        ],
+        "outbound":"DNS DOH"
+      },
+      {
+        "geosite":[
+          "rule-speedtest"
+        ],
+        "outbound":"Speed Test"
+      },
+      {
+        "geosite":[
+          "rule-sosmed"
+        ],
+        "outbound":"Sosmed"
+      },
+      {
+        "geosite":[
+          "rule-umum"
+        ],
+        "outbound":"Umum"
+      },
+      {
+        "port":[
+          3478,
+          4244,
+          5222,
+          5223,
+          5242,
+          45395,
+          50318,
+          59234
+        ],
+        "geoip":[
+          "facebook"
+        ],
+        "outbound":"ZalheraServer"
+      },
+      {
+        "geosite": [
+          "rule-gaming"
+        ],
+        "outbound": "Gaming"
+      },
+      {
+        "domain_suffix": [
+          "pagead2.googlesyndication.com"
+        ],
+        "outbound": "ZalheraServer"
+      },
+      {
+        "geosite": [
+          "rule-ads",
+          "oisd-full"
+        ],
+        "outbound": "Block Iklan"
+      }
+    ],
+    "find_process": true,
+    "auto_detect_interface": false,
+    "override_android_vpn": false
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "../dashboard/dist",
+      "secret": "",
+      "store_selected": true
+    }
+  }
+}
