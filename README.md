@@ -1,6 +1,6 @@
-Config Sing Box Rule Test. Kalau ada masukan pls comment aja, gw kerjain sebisanya v: br>
-<br>
-br>
+Config Sing Box Rule Test. Kalau ada masukan pls comment aja, gw kerjain sebisanya v:
+
+
 Wajib memakai kernel yg support proxy provider
  - Contoh Kernel : https://github.com/taamarin/sing-box/releases/tag/Prerelease-dev-provider
 
@@ -12,7 +12,7 @@ Kenapa Hanya Websocket yg saya kerjakan? ya kalian tinggal ganti aja sendiri con
 
  - Saran Edit gunakan Mt manager untuk HP
  - Saran Edit Visual Studio Code / Notepad++ Untuk PC/Laptop
- - Biar memper mudah edit code string nya. 
+Biar memper mudah edit code string nya. 
 Tajuk Config Selain 3 Diata Bisa diganti Sbb:
  - Vless Grpc : https://github.com/malikshi/sing-box-examples/tree/main/Vless%20gRPC
  - Vmess Grpc : https://github.com/malikshi/sing-box-examples/tree/main/VMess%20gRPC
