@@ -344,7 +344,7 @@
         "source_ip_cidr": [
           "224.0.0.0/3",
           "ff00::/8"
-        ],
+        ]
       }
     ],
     "find_process": true,
