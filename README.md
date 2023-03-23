@@ -1,4 +1,4 @@
-Config Sing Box Rule Test. Kalau ada masukan pls comment aja, gw kerjain sebisanya v:
+Config Sing Box Rule Test ( CONFIG INI KHUSUS PENGGUNA BOX FOR MAGISK, YES THIS IS FOR ROOT USERS. BUKAN BUAT APK NEKOBOX YAH!!!! ). Kalau ada masukan pls comment aja, gw kerjain sebisanya v:
 
 
 Wajib memakai kernel yg support proxy provider
